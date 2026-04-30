@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - EvalPro{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+    <div class="mb-4">
+        <h1 class="h3 fw-semibold text-slate-900">Dashboard</h1>
+        <p class="text-slate-500">Bienvenido, {{ user.get_full_name }}</p>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card card-custom">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-slate-500 mb-1">Total Empleados</p>
+                            <h3 class="h2 fw-bold text-slate-900">{{ total_employees }}</h3>
+                        </div>
+                        <div class="bg-blue-100 p-3 rounded-circle">
+                            <i class="bi bi-people fs-3" style="color: var(--color-blue);"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card card-custom">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-slate-500 mb-1">Evaluaciones</p>
+                            <h3 class="h2 fw-bold text-slate-900">{{ total_evaluations }}</h3>
+                        </div>
+                        <div class="bg-purple-100 p-3 rounded-circle">
+                            <i class="bi bi-clipboard-check fs-3" style="color: var(--color-purple);"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card card-custom">
+                <div class="card-body">
+                    <h5 class="card-title">Estado del Sistema</h5>
+                    <p class="text-slate-500">El sistema está funcionando correctamente.</p>
+                    <p class="text-slate-600"><strong>Proyecto Django con Bootstrap implementado exitosamente.</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
