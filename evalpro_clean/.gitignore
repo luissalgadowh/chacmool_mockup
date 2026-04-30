@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+virtualenv/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/media
+/staticfiles
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+.hypothesis/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Django migrations (opcional - descomenta si no quieres versionar)
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+# Node (por si usas npm para algo)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Backups
+*.bak
+*.swp
+*~
+
+# OS
+Thumbs.db
+.DS_Store
