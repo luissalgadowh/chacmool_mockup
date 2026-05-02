@@ -4,8 +4,28 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Nueva Evaluación - Versión Tailwind</title>
+<!-- Fuentes reales del proyecto: Manrope (body) + Outfit (títulos) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <!-- Tailwind por CDN: ideal para prototipos. En producción usa el build oficial. -->
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          display: ['Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  body { font-family: 'Manrope', sans-serif; }
+  h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; }
+</style>
 </head>
 <body class="bg-slate-100 min-h-screen">
 

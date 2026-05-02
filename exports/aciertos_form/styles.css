@@ -1,16 +1,23 @@
 /* =========================================
    Formulario "Nueva Evaluación - Aciertos y Desaciertos"
    CSS puro - sin dependencias
+   Fuentes: Manrope (body) + Outfit (títulos) - Google Fonts
    ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-               Arial, "Noto Sans", sans-serif;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: #f1f5f9;
   color: #0f172a;
+}
+
+h1, h2, h3, h4, h5, h6,
+.modal-title, .section-title, .subsection-title {
+  font-family: 'Outfit', sans-serif;
 }
 
 /* ----- Modal ----- */

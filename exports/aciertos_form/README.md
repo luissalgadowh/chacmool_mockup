@@ -50,7 +50,17 @@ Azul info:          #1e40af / borde #bfdbfe / bg #eff6ff
 Radio cards:        16px (1rem)
 Radio inputs:       12px (.75rem)
 Radio chips/listas: 8px (.5rem)
-Fuente:             system-ui sans-serif
+
+FUENTES (Google Fonts):
+  Body / texto:      Manrope  (300, 400, 500, 600, 700)
+  Títulos h1–h6:     Outfit   (300, 400, 500, 600, 700)
+  Fallback:          -apple-system, BlinkMacSystemFont, sans-serif
+
+Import CSS:
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+
+Import HTML:
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 ```
 
 ## 📤 Cómo descargarlo
