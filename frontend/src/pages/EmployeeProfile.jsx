@@ -188,7 +188,8 @@ const EmployeeProfile = () => {
     address: currentEmployee.address,
     postalCode: currentEmployee.postalCode,
     colony: currentEmployee.colony,
-    municipality: currentEmployee.municipality
+    municipality: currentEmployee.municipality,
+    perfilPuesto: currentEmployee.perfilPuesto || ''
   });
 
   // Actualizar formData cuando cambie el empleado
@@ -207,10 +208,32 @@ const EmployeeProfile = () => {
       address: currentEmployee.address,
       postalCode: currentEmployee.postalCode,
       colony: currentEmployee.colony,
-      municipality: currentEmployee.municipality
+      municipality: currentEmployee.municipality,
+      perfilPuesto: currentEmployee.perfilPuesto || ''
     });
     setIsEditing(false);
   }, [employeeId]);
+
+  // Catálogo de Perfiles de Puesto
+  const perfilesPuesto = [
+    'Director General',
+    'Gerente de Desarrollo',
+    'Gerente de Ventas y Operaciones',
+    'Gerente de Finanzas',
+    'Lider de Marketing',
+    'Asesor de Ventas',
+    'Supervisor de Soporte Tecnico',
+    'Soporte Tecnico JR',
+    'Soporte Tecnico MID',
+    'Soporte Tecnico SR',
+    'Contador',
+    'Auxiliar Contable',
+    'Scrum Master',
+    'Lider de Proyecto',
+    'Programdor SR',
+    'Programador MID',
+    'Programador JR'
+  ];
 
   // Filtrar empleados para búsqueda
   const filteredEmployees = mockEmployeesData.filter(emp => 
@@ -540,6 +563,62 @@ const EmployeeProfile = () => {
       );
     }
     
+    if (activeSidebarSection === 'datos-laborales') {
+      return (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold text-slate-900">Datos laborales</h2>
+            {!isEditing ? (
+              <button
+                onClick={() => setIsEditing(true)}
+                className="flex items-center gap-2 px-4 py-2 text-sm bg-slate-900 text-white rounded-lg hover:bg-slate-800"
+              >
+                <Edit2 className="w-4 h-4" />
+                Editar
+              </button>
+            ) : (
+              <div className="flex gap-2">
+                <button
+                  onClick={handleCancelEdit}
+                  className="flex items-center gap-2 px-4 py-2 text-sm border border-slate-200 rounded-lg hover:bg-slate-50"
+                >
+                  <X className="w-4 h-4" />
+                  Cancelar
+                </button>
+                <button
+                  onClick={handleSaveChanges}
+                  className="flex items-center gap-2 px-4 py-2 text-sm bg-slate-900 text-white rounded-lg hover:bg-slate-800"
+                >
+                  <Save className="w-4 h-4" />
+                  Guardar cambios
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Formulario de Datos Laborales */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Perfil de Puesto
+              </label>
+              <select
+                value={formData.perfilPuesto}
+                onChange={(e) => setFormData({ ...formData, perfilPuesto: e.target.value })}
+                disabled={!isEditing}
+                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-500 bg-white"
+              >
+                <option value="">Selecciona un perfil de puesto</option>
+                {perfilesPuesto.map((p) => (
+                  <option key={p} value={p}>{p}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return renderUnderConstructionContent();
   };
 
