@@ -13,6 +13,8 @@ class Employee(BaseModel):
     kpis_score: int = 0
     eval_360_score: int = 0
     category: str = "B1"
+    perfilPuesto: Optional[str] = None
+    responsable: Optional[str] = None
     created_at: datetime = datetime.now()
 
 class EmployeeCreate(BaseModel):
@@ -21,6 +23,8 @@ class EmployeeCreate(BaseModel):
     department: str
     email: str
     avatar: Optional[str] = None
+    perfilPuesto: Optional[str] = None
+    responsable: Optional[str] = None
 
 class EmployeeUpdate(BaseModel):
     name: Optional[str] = None
@@ -30,3 +34,5 @@ class EmployeeUpdate(BaseModel):
     avatar: Optional[str] = None
     kpis_score: Optional[int] = None
     eval_360_score: Optional[int] = None
+    perfilPuesto: Optional[str] = None
+    responsable: Optional[str] = None

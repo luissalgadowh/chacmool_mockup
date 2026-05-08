@@ -10,6 +10,7 @@ import KPIsView from './pages/KPIsView';
 import Evaluations360View from './pages/Evaluations360View';
 import PDIView from './pages/PDIView';
 import EmployeeProfile from './pages/EmployeeProfile';
+import Organigrama from './components/Organigrama';
 import { 
   Users, 
   Target, 
@@ -1457,28 +1458,6 @@ const ManualEvaluation = () => {
 // MAIN APP
 // ============================================
 
-// Placeholder simple para Organigrama (sin funcionalidad por ahora)
-const OrganigramaPlaceholder = () => (
-  <div className="animate-fade-in">
-    <div className="mb-8">
-      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight" style={{ fontFamily: 'Outfit' }}>
-        Organigrama
-      </h1>
-      <p className="text-slate-500 mt-1">Estructura organizacional</p>
-    </div>
-
-    <div className="bg-white border border-dashed border-slate-300 rounded-2xl p-16 flex flex-col items-center justify-center text-center">
-      <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mb-4">
-        <Network className="w-8 h-8 text-slate-400" />
-      </div>
-      <h2 className="text-lg font-semibold text-slate-700">Próximamente</h2>
-      <p className="text-sm text-slate-500 mt-1 max-w-md">
-        Este apartado mostrará el organigrama de la organización. La funcionalidad será desarrollada próximamente.
-      </p>
-    </div>
-  </div>
-);
-
 const Layout = ({ children, isAdmin, setIsAdmin }) => (
   <div className="flex min-h-screen bg-[#FAFAFA]">
     <Sidebar isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
@@ -1521,7 +1500,7 @@ const AppContent = () => {
             <Route path="/pdi" element={<PDIView isAdmin={isAdmin} />} />
             <Route path="/aciertos-desaciertos" element={<AciertosDesaciertosView isAdmin={isAdmin} />} />
             <Route path="/kpis" element={<KPIsView isAdmin={isAdmin} />} />
-            <Route path="/organigrama" element={<OrganigramaPlaceholder />} />
+            <Route path="/organigrama" element={<Organigrama />} />
             <Route path="/my-profile" element={<MyProfileResultsView isAdmin={isAdmin} />} />
             <Route path="/manual-eval" element={<ManualEvaluation />} />
             <Route path="/perfil/:employeeId" element={<EmployeeProfile />} />

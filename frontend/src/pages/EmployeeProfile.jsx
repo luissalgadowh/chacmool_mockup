@@ -172,19 +172,29 @@ const EmployeeProfile = () => {
   const [activeEvalTab, setActiveEvalTab] = useState('cuestionarios');
   const [employeesList, setEmployeesList] = useState([]);
 
-  // Cargar lista real de empleados desde el backend (para selector de Responsable)
+  // Cargar lista real de empleados desde el backend (para selector de Responsable y para hidratar valores guardados)
   useEffect(() => {
     const loadEmployees = async () => {
       try {
         const data = await employeesAPI.getAll();
-        setEmployeesList(Array.isArray(data) ? data : []);
+        const list = Array.isArray(data) ? data : [];
+        setEmployeesList(list);
+        // Hidratar formData con perfilPuesto/responsable persistidos en BD para el empleado actual
+        const me = list.find((e) => String(e.id) === String(currentEmployee.id));
+        if (me) {
+          setFormData((prev) => ({
+            ...prev,
+            perfilPuesto: me.perfilPuesto || '',
+            responsable: me.responsable || ''
+          }));
+        }
       } catch (err) {
         console.error('Error fetching employees for Responsable:', err);
         setEmployeesList([]);
       }
     };
     loadEmployees();
-  }, []);
+  }, [employeeId]);
 
   // Obtener empleado actual
   const currentEmployee = mockEmployeesData.find(emp => emp.id === employeeId) || mockEmployeesData[0];
@@ -285,12 +295,29 @@ const EmployeeProfile = () => {
     { id: 'automatizaciones', label: 'Automatizaciones', icon: Zap }
   ];
 
-  const handleSaveChanges = () => {
-    // Aquí iría la lógica para guardar en BD (por ahora solo mock)
-    console.log('Guardando cambios:', formData);
-    setIsEditing(false);
-    // Mostrar notificación de éxito
-    alert('Cambios guardados correctamente (MOCK)');
+  const handleSaveChanges = async () => {
+    // Persistir cambios laborales (perfilPuesto y responsable) al backend.
+    // Otros campos (datos personales) se mantienen en mock por ahora.
+    try {
+      const payload = {
+        perfilPuesto: formData.perfilPuesto || null,
+        responsable: formData.responsable || null,
+      };
+      await employeesAPI.update(currentEmployee.id, payload);
+      // Actualizar la lista local para que el organigrama y demás vistas lo reflejen
+      setEmployeesList((prev) =>
+        prev.map((e) =>
+          String(e.id) === String(currentEmployee.id)
+            ? { ...e, perfilPuesto: payload.perfilPuesto, responsable: payload.responsable }
+            : e
+        )
+      );
+      setIsEditing(false);
+      alert('Cambios guardados correctamente');
+    } catch (err) {
+      console.error('Error guardando cambios:', err);
+      alert('Error al guardar cambios: ' + (err.message || 'desconocido'));
+    }
   };
 
   const handleCancelEdit = () => {

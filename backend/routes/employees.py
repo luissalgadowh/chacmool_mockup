@@ -62,7 +62,7 @@ async def update_employee(
     current_user: dict = Depends(require_manager_or_admin)
 ):
     """Actualizar empleado"""
-    update_data = {k: v for k, v in employee_data.dict().items() if v is not None}
+    update_data = employee_data.dict(exclude_unset=True)
     
     if not update_data:
         raise HTTPException(status_code=400, detail="No data to update")
