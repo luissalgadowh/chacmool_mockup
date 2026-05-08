@@ -1293,6 +1293,26 @@ const MyProfileResultsView = ({ isAdmin }) => {
 const EmployeeList = ({ isAdmin }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [perfilByName, setPerfilByName] = useState({});
+
+  // Cargar perfiles de puesto reales desde el backend e indexarlos por nombre
+  useEffect(() => {
+    const loadPerfiles = async () => {
+      try {
+        const data = await employeesAPI.getAll();
+        const list = Array.isArray(data) ? data : [];
+        const map = {};
+        list.forEach((e) => {
+          if (e.name) map[e.name.trim().toLowerCase()] = e.perfilPuesto || null;
+        });
+        setPerfilByName(map);
+      } catch (err) {
+        console.error('Error cargando perfiles de puesto:', err);
+      }
+    };
+    loadPerfiles();
+  }, []);
+
   const filteredEmployees = mockEmployees.filter(emp => emp.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
@@ -1352,7 +1372,9 @@ const EmployeeList = ({ isAdmin }) => {
                       <img src={emp.avatar} alt="" className="w-10 h-10 rounded-full" />
                       <div>
                         <p className="font-medium text-slate-900">{emp.name}</p>
-                        <p className="text-sm text-slate-500">{emp.position}</p>
+                        <p className="text-sm text-slate-500">
+                          {perfilByName[emp.name.trim().toLowerCase()] || emp.position}
+                        </p>
                       </div>
                     </div>
                   </td>
