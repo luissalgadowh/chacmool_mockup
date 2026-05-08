@@ -189,7 +189,8 @@ const EmployeeProfile = () => {
     postalCode: currentEmployee.postalCode,
     colony: currentEmployee.colony,
     municipality: currentEmployee.municipality,
-    perfilPuesto: currentEmployee.perfilPuesto || ''
+    perfilPuesto: currentEmployee.perfilPuesto || '',
+    responsable: currentEmployee.responsable || ''
   });
 
   // Actualizar formData cuando cambie el empleado
@@ -209,7 +210,8 @@ const EmployeeProfile = () => {
       postalCode: currentEmployee.postalCode,
       colony: currentEmployee.colony,
       municipality: currentEmployee.municipality,
-      perfilPuesto: currentEmployee.perfilPuesto || ''
+      perfilPuesto: currentEmployee.perfilPuesto || '',
+      responsable: currentEmployee.responsable || ''
     });
     setIsEditing(false);
   }, [employeeId]);
@@ -612,6 +614,30 @@ const EmployeeProfile = () => {
                 {perfilesPuesto.map((p) => (
                   <option key={p} value={p}>{p}</option>
                 ))}
+              </select>
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Responsable
+              </label>
+              <select
+                value={formData.responsable}
+                onChange={(e) => setFormData({ ...formData, responsable: e.target.value })}
+                disabled={!isEditing}
+                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-500 bg-white"
+              >
+                <option value="">Selecciona un responsable</option>
+                {mockEmployeesData
+                  .filter((emp) => emp.id !== currentEmployee.id)
+                  .map((emp) => {
+                    const perfil = emp.perfilPuesto || emp.position || 'Sin perfil';
+                    return (
+                      <option key={emp.id} value={emp.id}>
+                        {emp.name} - {perfil}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </div>
