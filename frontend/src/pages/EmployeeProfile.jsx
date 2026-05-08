@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { employeesAPI } from '../services/api';
 import {
   ArrowLeft, Search, User, Briefcase, FileText, Calendar, Target,
   ClipboardList, Clock, CheckSquare, BarChart3, Settings, Shield,
@@ -169,6 +170,21 @@ const EmployeeProfile = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [activeEvalTab, setActiveEvalTab] = useState('cuestionarios');
+  const [employeesList, setEmployeesList] = useState([]);
+
+  // Cargar lista real de empleados desde el backend (para selector de Responsable)
+  useEffect(() => {
+    const loadEmployees = async () => {
+      try {
+        const data = await employeesAPI.getAll();
+        setEmployeesList(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error('Error fetching employees for Responsable:', err);
+        setEmployeesList([]);
+      }
+    };
+    loadEmployees();
+  }, []);
 
   // Obtener empleado actual
   const currentEmployee = mockEmployeesData.find(emp => emp.id === employeeId) || mockEmployeesData[0];
@@ -628,8 +644,8 @@ const EmployeeProfile = () => {
                 className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-500 bg-white"
               >
                 <option value="">Selecciona un responsable</option>
-                {mockEmployeesData
-                  .filter((emp) => emp.id !== currentEmployee.id)
+                {employeesList
+                  .filter((emp) => String(emp.id) !== String(currentEmployee.id))
                   .map((emp) => {
                     const perfil = emp.perfilPuesto || emp.position || 'Sin perfil';
                     return (
